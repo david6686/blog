@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[音樂播放器測試]]></title>
+    <url>%2Fblog%2Fsilentink%2F23953%2F</url>
+    <content type="text"><![CDATA[var ap=new APlayer({element:document.getElementById("aplayer-pMDMvMGB"),narrow:!1,autoplay:!1,showlrc:!1,music:{title:"fly",author:"Fransis Derelle",url:"music.mp3",pic:"/blog/silentink/23953/photo.png",lrc:""}});window.aplayers||(window.aplayers=[]),window.aplayers.push(ap)Reference原曲目連結hexo-tag-aplayer本文地址： https://david6686.github.io/blog/silentink/23953/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo-next更改捐贈按鈕樣式]]></title>
+    <url>%2Fblog%2Fsilentink%2F61883%2F</url>
+    <content type="text"><![CDATA[原因原本的Reward的按鈕在字太長的時候會不好看然後顏色我也不喜歡第一方案(失敗)原本想說可以使用next功能中部落格/themes/next/source/css/_custom/custom.styl做自定義修改可以使用瀏覽器的元件追蹤功能來看（詳情hexo 自定義頁面樣式）但是…Reward按鈕的部分並沒有設定class雖然他的父物件&lt;button&gt;有設定id但是使用了css find element by id的語法，還是沒有效果123# id &#123; style:&#125;功力還不夠啊QQ最終方案（直接改源碼）直接改部落格/themes/next/layout/_macro/reward.swig在id=&quot;rewardButton&quot;的button元件增加(寬度自己調整)我自己的設定，更改寬度1style="width:250px;"在該button的子物件有個&lt;span&gt;，span要加style比較特殊，需要加display: inline-block;我自己的設定，更改背景顏色，寬度1style="background-color: #d633ff; width: 250px; display: inline-block;"Referencehexo 自定義頁面樣式本文地址： https://david6686.github.io/blog/silentink/61883/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo-next 使用hexo-abbrlink 製作永久連結]]></title>
+    <url>%2Fblog%2Fsilentink%2F54803%2F</url>
+    <content type="text"><![CDATA[原因hexo預設永久連結是依照日期，但是這個很容易改動又不希望永久連結內使用文章標題（因為是中文也有可能改動）安裝npm install hexo-abbrlink --save設定hexo預設設定理解hexo的站點配置文件(_config.yml)中使用permalink: :year/:month/:day/:title/當作永久連結的設定也就是說文章的永久連接最後會是年/月/日/標題詳情可以看hexo永久連結文檔而稍微底下一點有permalink_defaults:這個是可以設定自己的參數的自定義設定我使用hexo-abbrlink對每篇文章生出一個編號設定hexo-abbrlink在主題配置文件加上123456abbrlink: alg: crc32 #support crc16(default) and crc32 rep: hex #support dec(default) and hex #crc16/crc32:差別在於編號個數的極限，crc16可以生出65535個 #dec/hex: 差別在於編號生出來是十進制還是十六進制自定義永久連結格式我想要以作者名字為主，再加上編號來形成永久連結12permalink_defaults: author_name: Silentink #新增一個作者名字的參數1permalink: :author_name/:abbrlink/ #結果是：網域/作者名字/abbrlink生成編號套件特性舊的文章會在使用hexo g時生成編號Referencehexo-abbrlinkhexo永久連結文檔本文地址： https://david6686.github.io/blog/silentink/54803/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo-next 使用hexo-renderer-markdown-it]]></title>
+    <url>%2Fblog%2Fsilentink%2F13325%2F</url>
+    <content type="text"><![CDATA[為了讓jupyternote轉換後的markdown可以在部落格使用目前hexo的markdown引擎已經換成了hexo-renderer-markdown-it之前使用jupyternote轉成markdown後的文章之前的文章並沒有寫的很清楚，這次來完整紀錄一下hexo-renderer-markdown-it安裝首先，先把hexo本身的markdown引擎卸載npm un hexo-renderer-marked --save安裝hexo-renderer-markdonw-itnpm i hexo-renderer-markdown-it --save設定詳細的設定可以依照文檔把這個設置放在站點配置文件中目前我有使用數據文件的方法統合配置文件，但是我還是要在站點的_config.yml更改才有效，在統合後的/_data/next.yml 中更改並沒辦法生效，暫時還不知道為什麼123456789101112131415161718192021222324252627282930313233markdown: markdown: 'default' render: html: true #顯示html語法內容 xhtmlOut: false #Parser (not) produces fully XHTML compliant code breaks: true #覺得蠻有用的，在原本撰寫markdown時只要有break line符號，就會在最後產生結果時幫你加入&lt;br&gt;換行 linkify: true #只要有像網址的詞出現，就會在結果顯示時幫你把網址轉換成超連結 typographer: true #圖像符號的顯示 例如© quotes: '“”‘’' plugins: - markdown-it-footnote #註腳 - markdown-it-abbr #可以做標註縮寫 #以下啟用套件 需另外下載 #+ markdown-it-abbr #+ markdown-it-checkbox #+ markdown-it-emoji #表情符號 #+ markdown-it-footnote #+ markdown-it-ins #+ markdown-it-sub #+ markdown-it-sup anchors: # Minimum level for ID creation. (Ex. h2 to h6) level: 2 # A suffix that is prepended to the number given if the ID is repeated. collisionSuffix: 'v' # If `true`, creates an anchor tag with a permalink besides the heading. permalink: false # Class used for the permalink anchor tag. permalinkClass: header-anchor # The symbol used to make the permalink permalinkSymbol: ¶ #如果permalink為true， next文章目錄的章節前面都會加一個這樣的符號有三種markdown引擎ZeroDefault (GFM)CommonMark可以不寫markdown: ‘default’ 就會預設成為Default (GFM)pluginplugin效果可以去marked-it demo目前只有使用兩個pluginmarkdown-it-abbrmarkdown-it-footnote插件使用範例範例取至marked-it demomarkdonw-it-footnote123This is HTML abbreviation example.It converts &quot;HTML&quot;, but keep intact partial entries like &quot;xxxHTMLyyy&quot; and so on.*[HTML]: Hyper Text Markup LanguageThis is HTML abbreviation example.It converts “HTML”, but keep intact partial entries like “xxxHTMLyyy” and so on.markdown-it-footnote12345678910111213Footnote 1 link[^first].Footnote 2 link[^second].Inline footnote^[Text of inline footnote] definition.Duplicated footnote reference[^second].[^first]: Footnote **can have markup** and multiple paragraphs.[^second]: Footnote text.Footnote 1 link[1].Footnote 2 link[2].Inline footnote[3] definition.Duplicated footnote reference[2].備註好像不用裝checkbox 也有功能只是有一些參數並不能用12- [x] test1- [ ] test2[x] test1[ ] test2Referencehexo-renderer-markdown-it文檔marked-it demo本文地址： https://david6686.github.io/blog/silentink/13325/Footnote can have markupand multiple paragraphs. ↩Footnote text. ↩ ↩Text of inline footnote ↩]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo-next新增部落格總字數統計數量在網站底部]]></title>
+    <url>%2Fblog%2Fsilentink%2F42691%2F</url>
+    <content type="text"><![CDATA[套件使用hexo-wordcount方法主要是使用hexo-wordcount的功能進入 部落格資料夾/themes/next/layout/_partials/footer.swig檔案內我是直接新增一行來顯示也就是在theme-info的code底下再新增以下code12345&lt;div&gt; &lt;font&gt;總字數統計： &lt;/font&gt; &lt;span class="post-count"&gt;&#123;&#123; totalcount(site, '0,0') &#125;&#125;&lt;/span&gt; &lt;font&gt; 字&lt;/font&gt;&lt;/div&gt;Referencehexo-wordcount本文地址： https://david6686.github.io/blog/silentink/42691/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo-next新增網站訪問人數統計]]></title>
+    <url>%2Fblog%2Fsilentink%2F5343%2F</url>
+    <content type="text"><![CDATA[記錄一下使用方法修改主題配置在主題_config.yml中找到busuanzi_count把其中的enable設為true模式有模式可以設定pv的方法一個用戶連續點擊n篇文章，記錄n次訪問量12345#我沒有使用pv方法 所以為false# custom pv span for the whole site site_pv: false site_pv_header: &lt;i class="fa fa-eye"&gt;&lt;/i&gt; site_pv_footer:uv的方法一個用戶連續點擊n篇文章，記錄1次訪問量123456#我使用此方法所以為true#&lt;i class="fa fa-user"&gt; 是符號#custom uv span for the whole site site_uv: true site_uv_header: &lt;i class="fa fa-user"&gt;&lt;/i&gt;本站總訪問數 site_uv_footer: 人次Referencehexo-next文檔本文地址： https://david6686.github.io/blog/silentink/5343/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo_next文章置頂]]></title>
+    <url>%2Fblog%2Fsilentink%2F13136%2F</url>
+    <content type="text"><![CDATA[使用套件hexo-generator-index-pin-top方法npm uninstall hexo-generator-index --savenpm install hexo-generator-index-pin-top --save在要置頂的文章上使用top: True(這樣就會置頂了)(Options)Next的小功能，在置頂文章上加sticky: 100 (其實hexo-next寫這個sticky是會有個依照sticky大小做排序的功能，應該要能置頂，但好像有bug所以這樣子結合方法)這樣就會有小別針在置頂文章上面了Referencehexo-generator-index-pin-tophexo-next 置頂文章 issuehexo 置頂問題文章本文地址： https://david6686.github.io/blog/silentink/13136/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo-next無法備份themes/next到遠端倉庫問題]]></title>
+    <url>%2Fblog%2Fsilentink%2F27228%2F</url>
+    <content type="text"><![CDATA[問題因為hexo_next本身是子倉庫的關係，所以沒辦法直接push到自己的遠端倉庫狀況與解決方案如果next內並沒有做客製化，單純的想要備份next的配置文檔的話(_config.yml) 可以使用hexo資料檔案的技術，詳情參考。如果有客製化next的話，需要做git的submodule來再開一個repository來進行備份狀況一(只要備份配置文檔)先要條件：hexo版本 3以上確定自己在部落格資料夾進入source/_data (如果沒有_data資料夾，自己創一個)創立一個 next.yml 的檔案把站點配置文件的config.yml與主題目錄下的config.yml 一起複製貼上到next.yml內（我是站點的配置在上面，主題的在下面）特性節錄來自參考資料通过这个特性，你可以将所有的主题配置放置在站点的 source/_data/next.yml 文件中。原先放置在站点配置文件中的选项可以迁移到新的位置，同时，主题配置文件可以不用做任何修改。若后续版本有配置相关的改动时，你仅需在next.yml中做相应调整即可。狀況二（要備份整個next的資料夾）需要使用git的submodule（誤打誤撞弄好了，但還不是很清楚）Referencehexo資料檔案＿技術文檔hexo_github_issuegit submodule文檔本文地址： https://david6686.github.io/blog/silentink/27228/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[更改hexo-renderer]]></title>
+    <url>%2Fblog%2Fsilentink%2F18958%2F</url>
+    <content type="text"><![CDATA[原因因為無法用hexo原本的hexo-renderer-marked去顯示html的部分所以改用hexo-renderer-markdown-it方案之前可能設置錯誤，有時render失敗，目前採用下面的配置就穩定了在hexo的_config.yml加上以下123456789101112131415161718192021222324markdown: render: html: true # Doesn&apos;t escape HTML content so the tags will appear as html.（開啟好讓dataframe的表格能夠使用） xhtmlOut: false # Parser will not produce XHTML compliant code. breaks: true # Parser produces `&lt;br&gt;` tags every time there is a line break in the source document. linkify: false # Returns text links as text. typographer: true # Substitution of common typographical elements will take place. quotes: &apos;“”‘’&apos; # &quot;double&quot; will be turned into “single” # &apos;single&apos; will be turned into ‘single’ plugins: #以下啟用套件 需另外下載 #+ markdown-it-abbr #+ markdown-it-checkbox #+ markdown-it-emoji #+ markdown-it-footnote #+ markdown-it-ins #+ markdown-it-sub #+ markdown-it-sup anchors: level: 2 # Minimum level for ID creation. (Ex. h2 to h6) collisionSuffix: &apos;v&apos; # A suffix that is prepended to the number given if the ID is repeated. permalink: true # If true, creates an anchor tag with a permalink besides the heading. permalinkClass: header-anchor # Class used for the permalink anchor tag. permalinkSymbol: ¶ # The symbol used to make the permalink.Referencehexo-renderer-markedhexo-renderer-markdown-it設置參考本文地址： https://david6686.github.io/blog/silentink/18958/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python-pandas基礎操作]]></title>
+    <url>%2Fblog%2Fsilentink%2F10255%2F</url>
+    <content type="text"><![CDATA[簡單的紀錄一下pandas觀看數據以及load數據的方法1234567891011121314151617181920#data source:http://archive.ics.uci.edu/ml/datasets/Irisimport urllib3##from bs4 import BeautifulSoupimport pandas as pdimport iohttp = urllib3.PoolManager()url= http.request('GET', 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data')#通常如果文件中含有列標題可以使用 #可以在read_csv使用參數parse_dates=[0]讀取文件第一行的字串來當作names#然後header=None不寫column_name=[ 'sepal_length_in_cm', 'sepal_width_in_cm', 'petal_length_in_cm', 'petal_width_in_cm', 'class' ]#取得資料iris=pd.read_csv(io.StringIO(url.data.decode("utf-8")),header=None,names=column_name)12#資料前部分(可以指定顯示行數，預設5)iris.head(3).dataframe thead tr:only-child th{text-align:right}.dataframe tbody tr th{vertical-align:top}sepal_length_in_cmsepal_width_in_cmpetal_length_in_cmpetal_width_in_cmclass05.13.51.40.2Iris-setosa14.93.01.40.2Iris-setosa24.73.21.30.2Iris-setosa12#資料後部分(可以指定顯示行數，預設5)iris.tail(3).dataframe thead tr:only-child th{text-align:right}.dataframe tbody tr th{vertical-align:top}sepal_length_in_cmsepal_width_in_cmpetal_length_in_cmpetal_width_in_cmclass1476.53.05.22.0Iris-virginica1486.23.45.42.3Iris-virginica1495.93.05.11.8Iris-virginica12#資料摘要iris.describe().dataframe thead tr:only-child th{text-align:right}.dataframe tbody tr th{vertical-align:top}sepal_length_in_cmsepal_width_in_cmpetal_length_in_cmpetal_width_in_cmcount150.000000150.000000150.000000150.000000mean5.8433333.0540003.7586671.198667std0.8280660.4335941.7644200.763161min4.3000002.0000001.0000000.10000025%5.1000002.8000001.6000000.30000050%5.8000003.0000004.3500001.30000075%6.4000003.3000005.1000001.800000max7.9000004.4000006.9000002.50000012#選取特定列iris['sepal_length_in_cm'].head()0 5.1 1 4.9 2 4.7 3 4.6 4 5.0 Name: sepal_length_in_cm, dtype: float64 12#選取特定多個列iris[['sepal_length_in_cm',"class"]].head().dataframe thead tr:only-child th{text-align:right}.dataframe tbody tr th{vertical-align:top}sepal_length_in_cmclass05.1Iris-setosa14.9Iris-setosa24.7Iris-setosa34.6Iris-setosa45.0Iris-setosa1234567891011#在讀取的時候如果數據集太大的讀取#可以使用chunk的方式去做#chunk就是一塊快的數據快chunks=pd.read_csv(io.StringIO(url.data.decode("utf-8")),header=None,names=column_name,chunksize=10)#可以使用這樣印出所有#for chunk in chunks:# print(chunk)#以這裡就是10個一組#這裡印出其中一組print(chunks.get_chunk(10)) sepal_length_in_cm sepal_width_in_cm petal_length_in_cm \ 0 5.1 3.5 1.4 1 4.9 3.0 1.4 2 4.7 3.2 1.3 3 4.6 3.1 1.5 4 5.0 3.6 1.4 5 5.4 3.9 1.7 6 4.6 3.4 1.4 7 5.0 3.4 1.5 8 4.4 2.9 1.4 9 4.9 3.1 1.5 petal_width_in_cm class 0 0.2 Iris-setosa 1 0.2 Iris-setosa 2 0.2 Iris-setosa 3 0.2 Iris-setosa 4 0.2 Iris-setosa 5 0.4 Iris-setosa 6 0.3 Iris-setosa 7 0.2 Iris-setosa 8 0.2 Iris-setosa 9 0.1 Iris-setosa 1234#當真的在使用chunk讀取非常大的數據集時#分配一個iterator將會 動態分配每個pandas的數據框長度iris_iterator=pd.read_csv(io.StringIO(url.data.decode("utf-8")),header=None,names=column_name,chunksize=10)iris_iterator.get_chunk(10).dataframe thead tr:only-child th{text-align:right}.dataframe tbody tr th{vertical-align:top}.dataframe thead{word-wrap:break-word}//.dataframe thead{display:block}.dataframe table tbody{table-layout:fixed;overflow-y:auto;overflow-x:auto}sepal_length_in_cmsepal_width_in_cmpetal_length_in_cmpetal_width_in_cmclass05.13.51.40.2Iris-setosa14.93.01.40.2Iris-setosa24.73.21.30.2Iris-setosa34.63.11.50.2Iris-setosa45.03.61.40.2Iris-setosa55.43.91.70.4Iris-setosa64.63.41.40.3Iris-setosa75.03.41.50.2Iris-setosa84.42.91.40.2Iris-setosa94.93.11.50.1Iris-setosa本文地址： https://david6686.github.io/blog/silentink/10255/]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[在spaceemacs安裝scheme環境]]></title>
+    <url>%2Fblog%2Fsilentink%2F35940%2F</url>
+    <content type="text"><![CDATA[原因為了寫scheme在spaceemacs上搞了一下環境方案首先使用emacs所準備的layers：把 scheme放進dotspacemacs-configurationlayers並且spc q r重新啟動就安裝好spaceemacs對於shceme的功能支援為了能夠有直譯的環境還需要安裝chicken，依照教學要依序在打入這些指令（我是在~目錄做的）12345678OS X: brew install chicken (要先安裝brew喔)linux: sudo apt install chicken-bin其他系統（試試看用pip）:(教學沒有上面這行，依照你系統打相對的指令)chicken-install -s apropos chicken-doccd `csi -p &apos;(chicken-home)&apos;`curl https://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx打完以上指令，就準備好了對於sheme直譯的環境，但是這樣子使用時在要編譯shceme的時候使用快捷鍵spc m c c時會跳出No Geiser REPL for this buffer叫你M-x run-Geiser就算你已經在旁邊開啟了geiser-chicken的直譯頁面也會跑出這個依據這個issue還有這個問題的解答我再第一步驟中在dotspacemacs-configurationlayers放入的shceme下面再添加一行(setq scheme-program-name &quot;chicken&quot;)之後就可以了。最後你的scheme檔的開頭必須要打上;; -*- geiser-scheme-implementation: 'chicken -*-，以上所有都做完了，那快捷鍵spc q r應該就能正常使用了！Referencehttps://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/schemehttps://github.com/jaor/geiser/issues/130https://stackoverflow.com/questions/9603512/running-scheme-from-emacs本文地址： https://david6686.github.io/blog/silentink/35940/]]></content>
+      <categories>
+        <category>emacs</category>
+      </categories>
+      <tags>
+        <tag>emacs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[scheme小練習（max,min）]]></title>
+    <url>%2Fblog%2Fsilentink%2F65091%2F</url>
+    <content type="text"><![CDATA[練習了一下list找最大值與最小值並輸出成一個list(min,max)原來換行可以直接包起來用啊xd本文地址： https://david6686.github.io/blog/silentink/65091/]]></content>
+      <categories>
+        <category>程式語言</category>
+        <category>lisp</category>
+        <category>scheme</category>
+      </categories>
+      <tags>
+        <tag>scheme</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[emacs上搭建slime來寫scheme]]></title>
+    <url>%2Fblog%2Fsilentink%2F1659%2F</url>
+    <content type="text"><![CDATA[原因要寫scheme想直接架設slime看看，先把資源準備好方案(6/1更新)發現spaceemacs有自己commen lisp,scheme的layers已經有了所以只要在dotspacemacs-configuration-layers中加入common lisp ,scheme中他就會自己安裝啦～特別注意scheme layers的安裝 如果要chicken的完全支援，還要在依照他的安裝教學在進一步安裝。Referenceslimeslime.orgspaceemacs common lisp layer优哉·幽斋Common Lisp学习笔记（0）：从SLIME开始在Emacs中为Scheme设置更为舒服的编程环境本文地址： https://david6686.github.io/blog/silentink/1659/]]></content>
+      <categories>
+        <category>emacs</category>
+      </categories>
+      <tags>
+        <tag>emacs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[加密測試文章]]></title>
+    <url>%2Fblog%2Fsilentink%2F53071%2F</url>
+    <content type="text"><![CDATA[password is "test". Decrypt U2FsdGVkX1+ibiazTIMji3SZiPuOzPstb52s3H8RJcuh4qbGVhw/Q1DRZ2CoWgtIwz3eRxqbMwm/ho/fdx8k5nR5e9AnYTa7xG+og8+/jTQ5GDl2nH285la7NaZQn2XT5EB1VbuYoPC2Oeugfv+5o/IJNVrHsUlfb2+5MUj/mFH4FQ5z8pAVMsL5pe7crWJe5+Pm2IrH06dSmSsS2KjjUO9InkacHSL0MPp3A3aBtW5gv85fXmLU295utI5wTW1VejomSY8sXzkz+jvy7k5gnjT0DxNkJ+JGlqroMVO97Al0IbebkVD6wpMEHLZdZKNiuSHA8QcrAYwlwydhGMY++dHpRvoWmpG+TBSDBh2QFoST7SKYkYL/zWNBExnQV7XjLwWqEa5EVYwmn8SszLRcjsGK8MWAAov0RUlVR8uPd8eJSuN+vwF1ocKM0HBPwR8qofaujo0Hn38QpDZNANjDmnnyWumwGiISVUKcFDKDWPDE/YPdD574KfV+Nii9O0RmU4+zm3BYUSViaDJnFpvibqBgJ/iC5b4KMwabnZ1dDdOeOiYN3WHcHgdop0B+ddhOo6WA0h6i505Xjs5a3LfMNtbTNohve3UcZU0D2AeN2N0OXgCUtzpFudWzrZj5+xda0Jd4bdeA7gJ0U7k2ULU1V47fO6XMVUo9+NEFiy/y++JJt85AmiJGokNrQI5XQ9jZqbW4D989lr0+Ik2KZFLGcKpC8uSKX+SClew7sUfEqbc8tewn+57V+8oRGBm9TfmpeUIWrbbQymcxIrjAwVX+sTk97AXuxndLwNZyDnEY9Uc=]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[新增最近文章]]></title>
+    <url>%2Fblog%2Fsilentink%2F54511%2F</url>
+    <content type="text"><![CDATA[感覺部落格如果沒有最近文章會沒有閱讀跟有更新的感覺，next中並沒有支援這塊，如果要新增widget來製作有很麻煩，失敗了幾次，目前就先利用這個教學所做的做出來了。其實有hexo-generator-recent這種插件，可以生成json格式的最近文章，但是要取用並寫出來就…目前不是很想做xdReferencehexo-next主题添加近期文章版块本文地址： https://david6686.github.io/blog/silentink/54511/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[nest背景效果]]></title>
+    <url>%2Fblog%2Fsilentink%2F15620%2F</url>
+    <content type="text"><![CDATA[這個效果很好看，而且十分容易安裝因為有支援CDN所以next只要在主題文件中/layout/_layout.swig中body末端(也就是&lt;/body&gt;上方)加入1&lt;script src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"&gt;&lt;/script&gt;就可以完成了！更新hexo_next 已經有更新並且內建了詳請請看next文檔 设置「背景动画」的部分Referencecanvas-nest.jsnext文檔本文地址： https://david6686.github.io/blog/silentink/15620/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python hello world]]></title>
+    <url>%2Fblog%2Fsilentink%2F39966%2F</url>
+    <content type="text"><![CDATA[嘗試使用repl.it來連結，拿來寫之後的程式筆記。本文地址： https://david6686.github.io/blog/silentink/39966/]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Welcome to my Blog!]]></title>
+    <url>%2Fblog%2Fsilentink%2F13858%2F</url>
+    <content type="text"><![CDATA[哈囉，如果沒意外這篇會置頂XD歡迎來到我的部落格，這裡會存放一下學習心得之類的感謝你的到來～～本文地址： https://david6686.github.io/blog/silentink/13858/]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo使用plugin整理]]></title>
+    <url>%2Fblog%2Fsilentink%2F52623%2F</url>
+    <content type="text"><![CDATA[整理一下自己使用的套件（自己存放用）使用主題：next背景效果：canvas-nest.js留言功能：Disqusi分享功能：addthis站內搜索功能：Algoria網站分析與統計：google 分析站點地圖：google webmaster其他功能：偽春菜RSS文章地址：hexo-addlink使用了hexagon 的list功能把plugin列出來總體來看plugin有hexohexo-addlinkhexo-deployer-githexo-generator-archivehexo-generator-categoryhexo -generator-feedhexo-generator-indexhexo-generator-sitemaphexo-generator-ejshexo-generator-taghexo-renderer-ejshexo-renderer-markedhexo-renderer-stylushexo-server好像還沒有寫完整…再補充Reference:本文地址： https://david6686.github.io/blog/silentink/52623/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[偽春菜的安裝]]></title>
+    <url>%2Fblog%2Fsilentink%2F21159%2F</url>
+    <content type="text"><![CDATA[今天看到有網頁版的偽春菜，感覺很有趣想要裝就找到了參考教學，大致上沒什麼困難，直到…我的人物圖片一直讀不到QQ，不斷的確認了相對路徑以及圖片放置的位置，感覺都沒有問題。最後沒辦法只好丟圖床來連結了…ps:提醒自己～關於它的修改要到主題的source/lib/weichuncai/weichuncai.js修改Reference添加偽春菜本文地址： https://david6686.github.io/blog/silentink/21159/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[開始使用emacs寫hexo]]></title>
+    <url>%2Fblog%2Fsilentink%2F24326%2F</url>
+    <content type="text"><![CDATA[問題使用emacs中的package-list 安裝參考教學使用這個方法安裝的如果沒有做額外處理會被當作orphan package 被殺掉QQ解決辦法要把新安裝的package放入 dotfile的addtion-package,或是新增layer使用套件：hexo.elReferenceemacs安裝套件入門hexo.el本文地址： https://david6686.github.io/blog/silentink/24326/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo next添加rss]]></title>
+    <url>%2Fblog%2Fsilentink%2F63897%2F</url>
+    <content type="text"><![CDATA[原因看到rss這功能很炫很像要弄個出來xd，看了一下網路的教學失敗幾次後終於弄出來了xd(大概?)步驟安裝hexo-generator-feed（在根目錄執行以下指令）1hexo-generator-feed在主題配置文件中（主題的＿config.yml）1234567找到 #extention的部分plugin: - hexo-generator-feed在這個文件中可以找到rss:（這裏空下來就行，詳情可以看它原本的註解）在hexo配置文件中（不一定需要）123456#Directory 中加入feed: type: atom path: atom.xml limit: 20reference韩海龙blog Hexo—正确添加RSS订阅本文地址： https://david6686.github.io/blog/silentink/63897/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2Fblog%2Fsilentink%2F16107%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.Quick StartCreate a new post1$ hexo new "My New Post"More info: WritingRun server1$ hexo serverMore info: ServerGenerate static files1$ hexo generateMore info: GeneratingDeploy to remote sites1$ hexo deployMore info: Deployment本文地址： https://david6686.github.io/blog/silentink/16107/]]></content>
+      <categories>
+        <category>blog建構誌</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+</search>
